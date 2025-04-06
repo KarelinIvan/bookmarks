@@ -9,6 +9,29 @@
 <body>
   <div id="header">
     <span class="logo">Bookmarks</span>
+    {% if request.user.is_authenticated %}
+      <ul class="menu">
+        <li {% if section == "dashboard" %}class="selected"{% endif %}>
+          <a href="{% url 'dashboard' %}">Моя панель управления</a>
+        </li>
+        <li {% if section == "images" %}class="selected"{% endif %}>
+          <a href="#">Изображения</a>
+        </li>
+        <li {% if section == "people" %}class="selection"{% endif %}>
+          <a href="#">Люди</a>
+        </li>
+      </ul>
+    {% endif %}
+    <span class="user">
+      {% if request.user.is_authentivated %}Привет{{ request.user.first_name|default:request.user.username }},
+        <form action="{% url 'logout' %}" method="post">
+          <button type="submit">Выйти</button>
+          {% csrf_token %}
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Авторизоваться</a>
+      {% endif %}
+    </span>
   </div>
   <div id="content">
     {% block content %}
