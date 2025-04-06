@@ -21,5 +21,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     # url-адрес для панели управления
     path('', views.dashboard, name='dashboard'),
+    # url-адрес для регистрации нового пользователя
+    path('register/', views.register, name='register'),
 
 ]
