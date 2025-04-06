@@ -23,7 +23,7 @@
       </ul>
     {% endif %}
     <span class="user">
-      {% if request.user.is_authentivated %}Привет{{ request.user.first_name|default:request.user.username }},
+      {% if request.user.is_authenticated %}Привет {{ request.user.first_name|default:request.user.username }},
         <form action="{% url 'logout' %}" method="post">
           <button type="submit">Выйти</button>
           {% csrf_token %}
