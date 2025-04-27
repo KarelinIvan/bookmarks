@@ -30,7 +30,7 @@ class UserEditForm(forms.ModelForm):
     """ Форма для редактирования имени, фамилии, e-mail """
     class Meta:
         model = get_user_model()
-        fields = ['first_name', 'lastname', 'email']
+        fields = ['first_name', 'last_name', 'email']
 
 class ProfileEditForm(forms.ModelForm):
     """ Форма для редактирования данных профиля """
