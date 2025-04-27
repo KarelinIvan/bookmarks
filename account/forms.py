@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 from account.models import Profile
 
@@ -16,7 +16,7 @@ class UserRegistrationForm(forms.ModelForm):
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['username', 'first_name', 'email']
 
     def clean_password2(self):
@@ -30,7 +30,7 @@ class UserRegistrationForm(forms.ModelForm):
         """ Валидация электронной почты, которая не позволяет пользователям
         регистрироваться с уже существующим адресом электронной почты """
         data = self.cleaned_data['email']
-        if get_user_model.objects.filter(email=data).exists():
+        if User.objects.filter(email=data).exists():
             raise forms.ValidationError('Электронная почта уже используется')
         return data
 
@@ -39,14 +39,14 @@ class UserEditForm(forms.ModelForm):
     """ Форма для редактирования имени, фамилии, e-mail """
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ['first_name', 'last_name', 'email']
 
     def clean_email(self):
         """ Валидация поля email, чтобы пользователи не могли изменить свой адрес электронной почты
          на существующий адрес электронной почты другого пользователя """
         data = self.cleaned_data['email']
-        qs = get_user_model.objects.exclude(id=self.instance.id).filter(email=data)
+        qs = User.objects.exclude(id=self.instance.id).filter(email=data)
         if qs.exists():
             raise forms.ValidationError('Электронная почта уже используется')
         return data
