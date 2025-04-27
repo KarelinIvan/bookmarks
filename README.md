@@ -14,3 +14,4 @@
  - Python версии 3.12+
  - Django версии 5.2
  - Pillow версии 11.2.1
+ - Social-auth-app-django версии 5.4.3
